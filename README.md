@@ -3,6 +3,19 @@
 This project is bare minimum for building a chess site with nodejs and socket.io.
 It uses javascript chess libraries: Chessboard.js, Chess.js, and the Garbo Chess Engine.
 
+# installation
+
+Install node.js and npm. Run
+
+    npm install express
+    npm install socket.io
+    
+Put the piece images in img/alpha directory.
+
+Run node with project
+    
+    node .
+
 # working with GarboChess.js
 
 To work with GarboChess.js I need to understand some other's code. One or two projects use Gary Linscott's 
