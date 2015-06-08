@@ -23,7 +23,7 @@ And then send messages to worker
     g_garbo.postMessage("position " + game.fen());
     g_garbo.postMessage("search 800");
     
-First line sets up a position, second line says solve it in 800 ms.
+First line sets up a position, second line says "Solve it in 800 ms."
 
 And I check messages from worker like this:
 
