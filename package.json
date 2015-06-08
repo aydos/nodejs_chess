@@ -1,0 +1,13 @@
+{
+  "name": "Old ChessBook",
+  "version": "0.2",
+  "description": "Old ChessBook",
+  "main": "server.js",
+  "author": "fahri aydos",
+  "private": true,
+  "license": "",
+  "dependencies": {
+    "express": "4.12",
+    "socket.io" : "1.3"
+  }
+}
