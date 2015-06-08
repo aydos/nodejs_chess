@@ -10,7 +10,7 @@ main codes from boardui.js. I will explain my way. You need to modify for your n
 
 Firstly we created a worker
 
-   var g_garbo = new Worker("/js/garbochess.js");
+    var g_garbo = new Worker("/js/garbochess.js");
 
 To check messages from worker, we need a onmessage function
 
