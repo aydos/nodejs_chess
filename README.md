@@ -9,6 +9,7 @@ To work with GarboChess.js I need to understand some other's code. One or two pr
 main codes from boardui.js. I will explain my way. You need to modify for your needs.
 
 Firstly we created a worker
+
    var g_garbo = new Worker("/js/garbochess.js");
 
 To check messages from worker, we need a onmessage function
