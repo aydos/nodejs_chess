@@ -27,7 +27,7 @@ Firstly we created a worker
 
     var g_garbo = new Worker("/js/garbochess.js");
 
-To check messages from worker, we need a onmessage function
+To check messages from worker, we need an onmessage function
 
     g_garbo.onmessage = function (e) {
        ...
