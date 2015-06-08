@@ -5,35 +5,37 @@ It uses javascript chess libraries: Chessboard.js, Chess.js, and the Garbo Chess
 
 Please visit the project site: http://chessbook.org
 
-# installation
+# Installation
 
-Install node.js and npm. Run
+Download the project files and unzip to a directory.
+
+Install node.js and npm. Run below commands within the same directory.
 
     npm install express
     npm install socket.io
     
-Put the piece images in img/alpha directory.
+Put the piece images in client/img/alpha directory. Or you can modify client/js/oldchessbook.js file.
 
-Run node with project
+Run node with project.
     
     node .
 
-# working with GarboChess.js
+# Working with GarboChess.js
 
-To work with GarboChess.js I need to understand some other's code. One or two projects use Gary Linscott's 
-main codes from boardui.js. I will explain my way. You need to modify for your needs.
+To work with GarboChess.js I need to understand some other programmers code. One or two projects use Gary Linscott's 
+main codes from boardui.js. I figured it out how to include only garbochess.js and not include boardui.js (it is a board ui, and we dont need it). I will explain my way. You need to modify for your needs.
 
-Firstly we created a worker
+First we created a worker:
 
     var g_garbo = new Worker("/js/garbochess.js");
 
-To check messages from worker, we need an onmessage function
+To check messages from worker, we need an onmessage function:
 
     g_garbo.onmessage = function (e) {
        ...
     }
 
-And then send messages to worker
+And then send messages to worker:
 
     g_garbo.postMessage("position " + game.fen());
     g_garbo.postMessage("search 800");
@@ -54,7 +56,7 @@ And I check messages from worker like this:
     }
 
 CAUTION: Since I modified GarboChess.js (latest "Test Harness" part) I only get the best move as message.
-But original GarboChess.js send more message if you like it analyze the position. You may need something like that:
+But original GarboChess.js send more messages if you like it analyze the position. Then you may need something like that:
 
     g_garbo.onmessage = function (e) {
         if (e.data.match("^pv") == "pv") {
