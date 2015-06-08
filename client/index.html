@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Old Chess Book</title>
+    <link rel="stylesheet" href="/css/oldchessbook.css">
+    <link rel="stylesheet" href="/css/chessboard.min.css">
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/chess.min.js"></script>
+    <script type="text/javascript" src="/js/chessboard.min.js"></script>
+    <script type="text/javascript" src="/js/garbochess.min.js"></script>
+    <script type="text/javascript" src="/js/oldchessbook.js"></script>
+</head>
+<body>
+    <div id="menu">
+        <h1>ChessBook.org</h1>
+    </div>
+    <div id="game">
+        <div id="info">
+            Your Name</br /><span id="username"></span></br />
+            Online Users</br /><span id="usercnt"></span></br />
+            Online Games</br /><span id="gamecnt"></span></br />
+            <span id="watcherinfo"></span></br />
+            </br />
+            <span id="btnabout">About</span></br />
+            <a href="https://github.com/aydos/old_chessbook" target="_new" style="color:white">github</a></br />
+            <span id="btnaydos">Fahri Aydos</span></br />
+        </div>
+        <div id="board"></div>
+        <div id="infoup">
+            <span id="gameinfoup"></span>
+            <div id="infodown">
+                <span id="gameinfodown"></span>
+            </div>
+        </div>
+    </div>
+    <div id="hider"></div>
+    <div id="askplay" class="panel">
+        <h2>Welcome to ChessBook.org</h2>
+        <button id="playhuman">Play with Human</button>
+        <button id="playcomputer">Play with Computer <br />
+        <span style="font-size:8pt;line-height:1em;">GarboChess.js 0.8s</span></button>
+        <button id="watchgames">Watch random game</button>
+    </div>
+    <div id="status" class="panel softpanel smallpanel">
+        <h3 id="message"></h3>
+        <button id="cancel">Cancel</button>
+    </div>
+    <div id="about" class="panel bigpanel">
+        <h2>ChessBook.org v0.1</h2>
+        This project is bare minimum for building a chess site with <a href="https://nodejs.org" target="_new">nodejs</a> and <a href="http://socket.io" target="_new">socket.io</a>. It uses javascript chess libraries: <a href="http://chessboardjs.com/" target="_new">Chessboard.js</a>, <a href="https://github.com/jhlywa/chess.js" target="_new">Chess.js</a>, and the <a href="https://github.com/glinscott/Garbochess-JS" target="_new">Garbo Chess Engine</a>.<br />
+        <br />
+        To support the project, you can do your all amazon shopping via this site.<br /><br />
+ <script charset="utf-8" type="text/javascript">
+amzn_assoc_ad_type = "responsive_search_widget";
+amzn_assoc_tracking_id = "aydos09";
+amzn_assoc_link_id = "KTN3C7RDVABOTNSE";
+amzn_assoc_marketplace = "amazon";
+amzn_assoc_region = "US";
+amzn_assoc_placement = "";
+amzn_assoc_search_type = "search_widget";
+amzn_assoc_width = 400;
+amzn_assoc_height = 250;
+amzn_assoc_default_search_category = "";
+amzn_assoc_default_search_key = "chess";
+amzn_assoc_theme = "light";
+amzn_assoc_bg_color = "FFFFFF";
+</script>
+<script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&MarketPlace=US"></script>
+        <button id="closeabout">Close</button>
+    </div>
+    <div id="aydos" class="panel">
+        <h2>Fahri Aydos</h2>
+        Please visit my other works:<br />
+        <br />
+        <a href="https://play.google.com/store/apps/developer?id=aydos" target="_new">android store</a> : android applications<br />
+        <a href="http://aydos.com" target="_new">aydos.com</a> : web applications<br />
+        <a href="http://aydos.net" target="_new">aydos.net</a> : my poems<br />
+        <a href="https://github.com/aydos/" target="_new">github.com/aydos</a> : github projects<br />
+        <br />
+        <button id="closeaydos">Close</button>
+    </div>
+</body>
+</html>
