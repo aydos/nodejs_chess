@@ -36,7 +36,6 @@ And I check messages from worker like this:
         game.move(move);
         board.position(game.fen());
         socket.emit("move", {move: move, fen: game.fen()});
-        updateStatus();
     }
 
 CAUTION: Since I modified GarboChess.js (latest "Test Harness" part) I only get the best move as message.
@@ -55,7 +54,6 @@ But original GarboChess.js send more message if you like it analyze the position
             game.move(move);
             board.position(game.fen());
             socket.emit("move", {move: move, fen: game.fen()});
-            updateStatus();
         }        
     }
 
