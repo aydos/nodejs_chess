@@ -5,7 +5,7 @@ It uses javascript chess libraries: Chessboard.js, Chess.js, and the Garbo Chess
 
 Please visit the project site: http://chessbook.org
 
-# Installation
+## Installation
 
 Download the project files and unzip to a directory.
 
