@@ -5,6 +5,12 @@ var socket, user, game, board, cfgplay, cfgwatch;
 // jquery variables
 var $username, $usercnt, $gamecnt, $gameinfo;
 var $hider, $status, $askplay;
+var $turnup, $turndown;
+var $playerup, $playerdown;
+var $message, $cancel;
+var $watchgames;
+var $watcherinfo;
+var $aydos, $about;
 
 // main function
 $(document).ready(function() {
@@ -33,6 +39,16 @@ $(document).ready(function() {
     $hider = $("#hider");
     $status = $("#status");
     $askplay = $("#askplay");
+    $turnup = $("#turnup");
+    $turndown = $("#turndown");
+    $watchgames = $("#watchgames");
+    $playerup = $("#playerup");
+    $playerdown = $("#playerdown");
+    $message = $("#message");
+    $cancel = $("#cancel");
+    $watcherinfo = $("#watcherinfo");
+    $aydos = $("#aydos");
+    $about = $("#about");
 
     $(window).bind("resize", initWindow);
     $(document).bind("keydown", keyDown);
@@ -59,9 +75,9 @@ function socketFunctions() {
         $usercnt.html(data.usercnt);
         $gamecnt.html(data.gamecnt);
         if (data.gamecnt == 0) {
-            $("#watchgames").prop("disabled", true);
+            $watchgames.prop("disabled", true);
         } else {
-            $("#watchgames").prop("disabled", false);
+            $watchgames.prop("disabled", false);
         }
     });
 
@@ -70,17 +86,29 @@ function socketFunctions() {
         $status.fadeOut("fast");
         user = data.user;
         game = new Chess();
-        board = new ChessBoard('board', cfgplay);
+        board = new ChessBoard("board", cfgplay);
         board.orientation(user.color);
+        if(user.color == "white") {
+            $turnup.removeClass("turnwhite").addClass("turnblack");
+            $turndown.removeClass("turnblack").addClass("turnwhite");
+        } else {
+            console.log(user.color);
+            $turnup.removeClass("turnblack").addClass("turnwhite");
+            $turndown.removeClass("turnwhite").addClass("turnblack");
+        }
+        showTurn();
     });
 
     socket.on("watch game", function (data) {
         $hider.fadeOut("fast");
         $status.fadeOut("fast");
         game = new Chess(data.fen);
-        board = new ChessBoard('board', cfgwatch);
+        board = new ChessBoard("board", cfgwatch);
         board.position(data.fen);
         board.orientation("white");
+        $turnup.removeClass("turnwhite").addClass("turnblack");
+        $turndown.removeClass("turnblack").addClass("turnwhite");
+        showTurn();
     });
 
     socket.on("finish game", function (data) {
@@ -95,22 +123,23 @@ function socketFunctions() {
 
     socket.on("game info", function (data) {
         if (board.orientation() === "white") {
-            $("#gameinfoup").html(data.black);
-            $("#gameinfodown").html(data.white);
+            $playerup.html(data.black);
+            $playerdown.html(data.white);
         } else {
-            $("#gameinfoup").html(data.white);
-            $("#gameinfodown").html(data.black);
+            $playerup.html(data.white);
+            $playerdown.html(data.black);
         }
         if (data.watchers) {
-            $("#watcherinfo").html("Watcher this game:<br /><span id='watchercnt'>"+data.watchers + "</span>");
+            $watcherinfo.html("Watcher this game:<br /><span id='watchercnt'>"+data.watchers + "</span>");
         } else {
-            $("#watcherinfo").html("");
+            $watcherinfo.html("");
         }
     });
 
     socket.on("move", function (data) {
         game.move(data.move);
         board.position(game.fen());
+        showTurn();
     });
 
 }
@@ -148,40 +177,41 @@ function keyDown(e) {
 function showStatus(message, button) {
     $hider.fadeIn("fast");
     $status.fadeIn("fast");
-    $("#message").html(message);
-    $("#cancel").html(button);
+    $message.html(message);
+    $cancel.html(button);
+}
+
+function showTurn() {
+    var turn = game.turn() === "w" ? "white" : "black";
+    if (turn === board.orientation()) {
+        $turnup.hide();
+        $turndown.show();
+    } else {
+        $turnup.show();
+        $turndown.hide();
+    }
 }
 
 function clickFunctions() {
 
     $("#btnabout").click(function() {
         $hider.fadeIn("fast");
-        $("#about").fadeIn("fast");
-    });
-
-    $("#btnstore").click(function() {
-        $hider.fadeIn("fast");
-        $("#store").fadeIn("fast");
+        $about.fadeIn("fast");
     });
 
     $("#btnaydos").click(function() {
         $hider.fadeIn("fast");
-        $("#aydos").fadeIn("fast");
+        $aydos.fadeIn("fast");
     });
 
     $("#closeabout").click(function() {
         $hider.fadeOut("fast");
-        $("#about").fadeOut("fast");
-    });
-
-    $("#closestore").click(function() {
-        $hider.fadeOut("fast");
-        $("#store").fadeOut("fast");
+        $about.fadeOut("fast");
     });
 
     $("#closeaydos").click(function() {
         $hider.fadeOut("fast");
-        $("#aydos").fadeOut("fast");
+        $aydos.fadeOut("fast");
     });
 
     askplay = function() {
@@ -207,16 +237,16 @@ function clickFunctions() {
         socket.emit("watch game");
     });
 
-    $("#cancel").click(function() {
+    $cancel.click(function() {
         $status.fadeOut("fast");
         $askplay.fadeIn("fast");
-        if ($("#cancel").html() === "Cancel") {
+        if ($cancel.html() === "Cancel") {
             socket.emit("cancel wait");
         }
-        if ($("#cancel").html() === "OK") {
+        if ($cancel.html() === "OK") {
             ;
         }
-        if ($("#cancel").html() === "Yes") {
+        if ($cancel.html() === "Yes") {
             var status = {
                 draw : 0,
                 white : 0,
@@ -237,9 +267,7 @@ function clickFunctions() {
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
 var onDragStart = function(source, piece, position, orientation) {
-    if (game.game_over() === true ||
-            (game.turn() === "w" && piece.search(/^b/) !== -1) ||
-            (game.turn() === "b" && piece.search(/^w/) !== -1)) {
+    if (game.game_over() === true || (game.turn() != piece[0]) ) {
         return false;
     }
     if (game.turn() === "w" && user.color === "black") {
@@ -255,10 +283,10 @@ var onDrop = function(source, target) {
     var move = game.move({
         from: source,
         to: target,
-        promotion: 'q'
+        promotion: "q"
     });
     // illegal move
-    if (move === null) return 'snapback';
+    if (move === null) return "snapback";
 
     // make the move
     socket.emit("move", {move: move.san, fen: game.fen()})
@@ -275,6 +303,7 @@ var onDrop = function(source, target) {
 // for castling, en passant, pawn promotion
 var onSnapEnd = function() {
     board.position(game.fen());
+    showTurn();
 };
 
 var updateStatus = function() {
@@ -338,6 +367,7 @@ var makeComputerMove = function() {
         g_garbo.terminate();
         game.move(move);
         board.position(game.fen());
+        showTurn();
         socket.emit("move", {move: move, fen: game.fen()});
         updateStatus();
     }
