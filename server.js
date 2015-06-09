@@ -12,6 +12,10 @@ v0.1 2015 06 04
 v0.2 2015 06 08
 - github'a kondu
 
+v0.3 2015 06 09
+- küçük düzeltmeler
+- oyun sırası
+
 */
 
 var express = require('express');
@@ -273,6 +277,8 @@ function finishGame(id, data) {
         why = "Black ("+ black +") won. " + white + " disconnected.";
     } else if (data.disconnected === black) {
         why = "White ("+ white +") won. " + white + " disconnected.";
+    } else {
+        why = "Game finished";
     }
 
     // do user staff
