@@ -27,24 +27,42 @@ main codes from boardui.js. I figured it out how to include only garbochess.js a
 
 First we created a worker:
 ```js
-    var g_garbo = new Worker("/js/garbochess.js");
+var g_garbo = new Worker("/js/garbochess.js");
 ```
 To check messages from worker, we need an onmessage function:
 ```js
-    g_garbo.onmessage = function (e) {
-       ...
-    }
+g_garbo.onmessage = function (e) {
+   ...
+}
 ```
 And then send messages to worker:
 ```js
-    g_garbo.postMessage("position " + game.fen());
-    g_garbo.postMessage("search 800");
+g_garbo.postMessage("position " + game.fen());
+g_garbo.postMessage("search 800");
 ```
 First line sets up a position, second line says "Solve it in 800 ms."
 
 And I check messages from worker like this:
 ```js
-    g_garbo.onmessage = function (e) {
+g_garbo.onmessage = function (e) {
+    move = { from: e.data[0]+e.data[1], to: e.data[2]+e.data[3] };
+    if (e.data[4]) {
+        move.promotion = e.data[4];
+    }
+    g_garbo.terminate();
+    game.move(move);
+    board.position(game.fen());
+    socket.emit("move", {move: move, fen: game.fen()});
+}
+```
+CAUTION: Since I modified GarboChess.js (latest "Test Harness" part) I only get the best move as message.
+But original GarboChess.js send more messages if you like it analyze the position. Then you may need something like that:
+```js
+g_garbo.onmessage = function (e) {
+    if (e.data.match("^pv") == "pv") {
+    } else if (e.data.match("^sam") == "sam") {
+    } else if (e.data.match("^message") == "message") {
+    } else {
         move = { from: e.data[0]+e.data[1], to: e.data[2]+e.data[3] };
         if (e.data[4]) {
             move.promotion = e.data[4];
@@ -53,24 +71,6 @@ And I check messages from worker like this:
         game.move(move);
         board.position(game.fen());
         socket.emit("move", {move: move, fen: game.fen()});
-    }
-```
-CAUTION: Since I modified GarboChess.js (latest "Test Harness" part) I only get the best move as message.
-But original GarboChess.js send more messages if you like it analyze the position. Then you may need something like that:
-```js
-    g_garbo.onmessage = function (e) {
-        if (e.data.match("^pv") == "pv") {
-        } else if (e.data.match("^sam") == "sam") {
-        } else if (e.data.match("^message") == "message") {
-        } else {
-            move = { from: e.data[0]+e.data[1], to: e.data[2]+e.data[3] };
-            if (e.data[4]) {
-                move.promotion = e.data[4];
-            }
-            g_garbo.terminate();
-            game.move(move);
-            board.position(game.fen());
-            socket.emit("move", {move: move, fen: game.fen()});
-        }        
-    }
+    }        
+}
 ```
