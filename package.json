@@ -1,6 +1,6 @@
 {
-  "name": "Old ChessBook",
-  "version": "0.2",
+  "name": "old_chessbook",
+  "version": "0.3.0",
   "description": "Old ChessBook",
   "main": "server.js",
   "author": "fahri aydos",
