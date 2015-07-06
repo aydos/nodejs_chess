@@ -1,4 +1,4 @@
-# Old ChessBook
+# NodeJS Chess
 
 This project is bare minimum for building a chess site with nodejs and socket.io.
 It uses javascript chess libraries: Chessboard.js, Chess.js, and the Garbo Chess Engine.
