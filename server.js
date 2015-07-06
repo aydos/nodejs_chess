@@ -272,11 +272,11 @@ function finishGame(id, data) {
     } else if (data.resigned === white) {
         why = "Black ("+ black +") won. " + white + " resigned.";
     } else if (data.resigned === black) {
-        why = "White ("+ white +") won. " + white + " resigned.";
+        why = "White ("+ white +") won. " + black + " resigned.";
     } else if (data.disconnected === white) {
         why = "Black ("+ black +") won. " + white + " disconnected.";
     } else if (data.disconnected === black) {
-        why = "White ("+ white +") won. " + white + " disconnected.";
+        why = "White ("+ white +") won. " + black + " disconnected.";
     } else {
         why = "Game finished";
     }
