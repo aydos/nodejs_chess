@@ -92,7 +92,6 @@ function socketFunctions() {
             $turnup.removeClass("turnwhite").addClass("turnblack");
             $turndown.removeClass("turnblack").addClass("turnwhite");
         } else {
-            console.log(user.color);
             $turnup.removeClass("turnblack").addClass("turnwhite");
             $turndown.removeClass("turnwhite").addClass("turnblack");
         }
