@@ -20,6 +20,22 @@ Run node with project.
     
     node .
 
+## Features
+
+* Guest can play againts computer (GarboChess.js, 800ms)
+* Guest can play againts another random guest
+* Guest can watch random game
+
+## Not Supported
+
+Below features are not and will not supported. You must implement them.
+* Chess game by time
+* Draw detection by repetition or by 50 moves
+* Registered users
+* Saving chess games
+* ELO or other rank system
+* Play againts diferrent levels of computer
+
 # Working with GarboChess.js
 
 To work with GarboChess.js I need to understand some other programmers code. One or two projects use Gary Linscott's 
