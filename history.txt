@@ -1,0 +1,22 @@
+Nodejs Chess (github.com/aydos/nodejs_chess)
+Fahri Aydos (aydos.com|.net|.org)
+
+2015 07 24 - v0.3
+* local'de git kullanılmaya başlandı
+
+2015 06 26 - v0.3
+* ismi "nodejs_chess" olarak değiştirildi
+
+2015 06 09 - v0.3
+* küçük düzeltmeler
+* oyun sırası gösteriliyor
+
+2015 06 08 - v0.2
+* github'a kondu
+
+2015 06 04 - v0.1
+* chessbook.org sitesinde yayınlandı
+
+2015 05 29 - v0.0
+* proje başlangıcı, ilk code, adı "Old ChessBook"
+
